@@ -43,6 +43,7 @@ def run(url, data=None):
     print(html)              
 #     print(response, data['parkList'])
     return html
+
 def get_free_slots(data):
     js = json.loads(data)
     slots = js["datas"]['venList']
@@ -57,6 +58,7 @@ def get_free_slots(data):
                                         print(park['id'], park['parkname'], t, flush=True)
                                         message_box()
     print("Checked", flush=True)
+    
 def query():
     url = 'http://tennis.coopcloud.cn/TennisCenterInterface/pmPark/getParkShowByParam.action'
     for park_type in [1,3]:
@@ -72,11 +74,14 @@ def query():
             res = run(url, data)
             get_free_slots(res)
             break
+            
 def order(data):
     url = 'http://tennis.coopcloud.cn/TennisCenterInterface/pmPark/addParkOrder.action'
     run(url, (data))
+    
 target_date = '2020-06-27'
 times = [20, 21]
+
 def book():
     if __name__ == '__main__':
         for info in parks_info:
@@ -90,6 +95,7 @@ def book():
             }
             x=Process(target=order,args=(park,))
             x.start()
+            
 # query()
 # order()
 # while True:
